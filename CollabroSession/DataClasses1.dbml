@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CollabDB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CollabDB.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CollabDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.SessionTable" Member="SessionTables">
+    <Type Name="SessionTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Sessiontitle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TakenBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Time" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SessionDesc" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Uploadpic" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdminTable" Member="AdminTables">
+    <Type Name="AdminTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AdminEmail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContactTable" Member="ContactTables">
+    <Type Name="ContactTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebinarTable" Member="WebinarTables">
+    <Type Name="WebinarTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WebinarTitle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PublishDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Source" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AssessmentTable" Member="AssessmentTables">
+    <Type Name="AssessmentTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="cDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AssignDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TaskDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="AssessmentTable_TaskTable" Member="TaskTables" ThisKey="Id" OtherKey="Tid" Type="TaskTable" />
+      <Association Name="UserTable_AssessmentTable" Member="UserTable" ThisKey="MemberId" OtherKey="Id" Type="UserTable" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReportTables" Member="ReportTables">
+    <Type Name="ReportTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Reporttitle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Reporttime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Reportdescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Report" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserTable" Member="UserTables">
+    <Type Name="UserTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Contact" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="UserTable_AssessmentTable" Member="AssessmentTables" ThisKey="Id" OtherKey="MemberId" Type="AssessmentTable" />
+      <Association Name="UserTable_TaskTable" Member="TaskTables" ThisKey="Id" OtherKey="Uid" Type="TaskTable" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TaskTable" Member="TaskTables">
+    <Type Name="TaskTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Tid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Uid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReportTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Report" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ReportTitle" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="UserTable_TaskTable" Member="UserTable" ThisKey="Uid" OtherKey="Id" Type="UserTable" IsForeignKey="true" />
+      <Association Name="AssessmentTable_TaskTable" Member="AssessmentTable" ThisKey="Tid" OtherKey="Id" Type="AssessmentTable" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
